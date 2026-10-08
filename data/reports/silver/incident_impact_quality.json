@@ -1,0 +1,57 @@
+{
+  "pipeline": "incident_impact_silver",
+  "source": "synthetic_ground_truth",
+  "processed_at_utc": "2026-10-08T08:55:05.244664+00:00",
+  "tables": {
+    "network_incidents_reference": {
+      "raw_rows": 10000,
+      "silver_rows": 10000,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_invalid_tower_reference": 0,
+        "is_invalid_area_reference": 0,
+        "is_invalid_type_reference": 0,
+        "is_missing_key": 0,
+        "is_invalid_time": 0,
+        "is_invalid_duration": 0,
+        "is_duration_mismatch": 0,
+        "is_invalid_severity": 0,
+        "is_invalid_status": 0,
+        "is_invalid_affected_count": 0,
+        "is_invalid_complaint_count": 0,
+        "is_invalid_call_drop_rate": 0,
+        "is_invalid_download_speed": 0,
+        "is_suspicious_latency": 39,
+        "is_missing_network_metrics": 164,
+        "is_tower_area_mismatch": 0
+      }
+    },
+    "bridge_incident_customer": {
+      "raw_rows": 750000,
+      "silver_rows": 750000,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_invalid_customer_reference": 0,
+        "is_invalid_incident_reference": 0,
+        "is_customer_area_mismatch": 0,
+        "is_missing_impact_end_original": 2857,
+        "is_missing_impact_duration_original": 2832,
+        "is_missing_impact_level_original": 2861,
+        "is_duration_repaired": 2832,
+        "is_end_repaired": 2857,
+        "is_impact_level_repaired": 2861,
+        "is_impact_level_mismatch": 0,
+        "is_missing_key": 0,
+        "is_invalid_impact_time": 0,
+        "is_invalid_impact_duration": 0,
+        "is_impact_duration_mismatch": 0,
+        "is_outside_incident_window": 0,
+        "is_invalid_impact_score": 0,
+        "is_invalid_impact_level": 0,
+        "is_invalid_service_affected": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,233 @@
+[
+  {
+    "table": "customers",
+    "rule": "invalid_age",
+    "failed_rows": 0,
+    "severity": "WARNING",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customers",
+    "rule": "age_group_mismatch",
+    "failed_rows": 1522,
+    "severity": "WARNING",
+    "recommended_action": "DERIVE_FROM_AGE"
+  },
+  {
+    "table": "customers",
+    "rule": "cancelled_without_churn_date",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customers",
+    "rule": "churn_before_activation",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "areas",
+    "rule": "invalid_coordinates",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "towers",
+    "rule": "invalid_coordinates",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "towers",
+    "rule": "suspicious_capacity",
+    "failed_rows": 1,
+    "severity": "WARNING",
+    "recommended_action": "FLAG_OUTLIER"
+  },
+  {
+    "table": "complaints",
+    "rule": "resolution_before_creation",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "complaints",
+    "rule": "closed_without_resolution",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "complaints",
+    "rule": "open_with_resolution",
+    "failed_rows": 0,
+    "severity": "WARNING",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customer_experience",
+    "rule": "invalid_rating",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customer_experience",
+    "rule": "invalid_satisfaction_score",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customer_experience",
+    "rule": "invalid_nps_score",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customer_experience",
+    "rule": "invalid_call_quality_score",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customer_experience",
+    "rule": "invalid_internet_experience_score",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customer_experience",
+    "rule": "invalid_network_quality_score",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "network_incidents",
+    "rule": "invalid_incident_time",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "network_incidents",
+    "rule": "suspicious_latency",
+    "failed_rows": 20,
+    "severity": "WARNING",
+    "recommended_action": "FLAG_OUTLIER"
+  },
+  {
+    "table": "bridge_incident_customer",
+    "rule": "invalid_impact_time",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "bridge_incident_customer",
+    "rule": "invalid_impact_score",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "INVESTIGATE"
+  },
+  {
+    "table": "customers",
+    "rule": "fk_area_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "customers",
+    "rule": "fk_plan_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "customers",
+    "rule": "fk_service_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "towers",
+    "rule": "fk_area_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "network_incidents",
+    "rule": "fk_tower_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "network_incidents",
+    "rule": "fk_area_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "network_incidents",
+    "rule": "fk_incident_type_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "complaints",
+    "rule": "fk_customer_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "complaints",
+    "rule": "fk_complaint_type_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "complaints",
+    "rule": "fk_incident_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "customer_experience",
+    "rule": "fk_customer_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "bridge_incident_customer",
+    "rule": "fk_customer_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  },
+  {
+    "table": "bridge_incident_customer",
+    "rule": "fk_incident_id_not_found",
+    "failed_rows": 0,
+    "severity": "ERROR",
+    "recommended_action": "QUARANTINE_OR_INVESTIGATE"
+  }
+]

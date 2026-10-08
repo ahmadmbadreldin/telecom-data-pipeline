@@ -1,0 +1,675 @@
+[
+  {
+    "table": "areas",
+    "rows": 50,
+    "columns": 9,
+    "primary_key": [
+      "area_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "area_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "area_name",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "city",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "governorate",
+        "null_count": 1,
+        "null_pct": 2.0
+      },
+      {
+        "column": "region",
+        "null_count": 2,
+        "null_pct": 4.0
+      },
+      {
+        "column": "country",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "latitude",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "longitude",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "population_density",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "bridge_incident_customer",
+    "rows": 750000,
+    "columns": 8,
+    "primary_key": [
+      "incident_id",
+      "customer_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "incident_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "customer_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "impact_start_timestamp",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "impact_end_timestamp",
+        "null_count": 2857,
+        "null_pct": 0.38
+      },
+      {
+        "column": "impact_duration_minutes",
+        "null_count": 2832,
+        "null_pct": 0.38
+      },
+      {
+        "column": "impact_level",
+        "null_count": 2861,
+        "null_pct": 0.38
+      },
+      {
+        "column": "impact_score",
+        "null_count": 2762,
+        "null_pct": 0.37
+      },
+      {
+        "column": "service_affected",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "complaint_types",
+    "rows": 5,
+    "columns": 6,
+    "primary_key": [
+      "complaint_type_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "complaint_type_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "complaint_code",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "complaint_name",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "category",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "default_priority",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "description",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "complaints",
+    "rows": 75000,
+    "columns": 12,
+    "primary_key": [
+      "complaint_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "complaint_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "customer_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "complaint_type_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "incident_id",
+        "null_count": 7500,
+        "null_pct": 10.0
+      },
+      {
+        "column": "created_timestamp",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "resolved_timestamp",
+        "null_count": 16993,
+        "null_pct": 22.66
+      },
+      {
+        "column": "status",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "priority",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "channel",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "complaint_text",
+        "null_count": 1504,
+        "null_pct": 2.01
+      },
+      {
+        "column": "resolution_minutes",
+        "null_count": 16993,
+        "null_pct": 22.66
+      },
+      {
+        "column": "sla_breached",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "customer_experience",
+    "rows": 150000,
+    "columns": 10,
+    "primary_key": [
+      "cx_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "cx_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "customer_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "event_timestamp",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "rating",
+        "null_count": 722,
+        "null_pct": 0.48
+      },
+      {
+        "column": "satisfaction_score",
+        "null_count": 767,
+        "null_pct": 0.51
+      },
+      {
+        "column": "nps_score",
+        "null_count": 725,
+        "null_pct": 0.48
+      },
+      {
+        "column": "call_quality_score",
+        "null_count": 711,
+        "null_pct": 0.47
+      },
+      {
+        "column": "internet_experience_score",
+        "null_count": 696,
+        "null_pct": 0.46
+      },
+      {
+        "column": "network_quality_score",
+        "null_count": 778,
+        "null_pct": 0.52
+      },
+      {
+        "column": "channel",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "customers",
+    "rows": 100000,
+    "columns": 12,
+    "primary_key": [
+      "customer_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "customer_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "customer_name",
+        "null_count": 618,
+        "null_pct": 0.62
+      },
+      {
+        "column": "area_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "plan_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "service_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "age",
+        "null_count": 579,
+        "null_pct": 0.58
+      },
+      {
+        "column": "age_group",
+        "null_count": 584,
+        "null_pct": 0.58
+      },
+      {
+        "column": "customer_segment",
+        "null_count": 618,
+        "null_pct": 0.62
+      },
+      {
+        "column": "subscription_status",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "activation_date",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "churn_date",
+        "null_count": 97034,
+        "null_pct": 97.03
+      },
+      {
+        "column": "last_updated_at",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "incident_types",
+    "rows": 5,
+    "columns": 6,
+    "primary_key": [
+      "incident_type_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "incident_type_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "incident_type_code",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "incident_type_name",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "category",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "default_severity",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "description",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "network_incidents",
+    "rows": 10000,
+    "columns": 17,
+    "primary_key": [
+      "incident_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "incident_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "tower_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "area_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "incident_type_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "start_timestamp",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "end_timestamp",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "duration_minutes",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "severity",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "max_latency_ms",
+        "null_count": 40,
+        "null_pct": 0.4
+      },
+      {
+        "column": "avg_latency_ms",
+        "null_count": 30,
+        "null_pct": 0.3
+      },
+      {
+        "column": "avg_signal_strength_dbm",
+        "null_count": 33,
+        "null_pct": 0.33
+      },
+      {
+        "column": "max_call_drop_rate",
+        "null_count": 37,
+        "null_pct": 0.37
+      },
+      {
+        "column": "avg_download_speed_mbps",
+        "null_count": 24,
+        "null_pct": 0.24
+      },
+      {
+        "column": "affected_customer_count",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "complaint_count",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "incident_status",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "root_cause",
+        "null_count": 34,
+        "null_pct": 0.34
+      }
+    ]
+  },
+  {
+    "table": "plans",
+    "rows": 8,
+    "columns": 11,
+    "primary_key": [
+      "plan_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "plan_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "plan_name",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "plan_type",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "monthly_fee",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "data_limit_gb",
+        "null_count": 1,
+        "null_pct": 12.5
+      },
+      {
+        "column": "voice_minutes",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "sms_limit",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "speed_limit_mbps",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "effective_from",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "effective_to",
+        "null_count": 8,
+        "null_pct": 100.0
+      },
+      {
+        "column": "is_active",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "services",
+    "rows": 5,
+    "columns": 6,
+    "primary_key": [
+      "service_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "service_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "service_name",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "service_category",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "technology",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "description",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "is_active",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  },
+  {
+    "table": "towers",
+    "rows": 500,
+    "columns": 11,
+    "primary_key": [
+      "tower_id"
+    ],
+    "missing_key_rows": 0,
+    "duplicate_key_groups": 0,
+    "column_profiles": [
+      {
+        "column": "tower_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "tower_name",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "area_id",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "latitude",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "longitude",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "tower_type",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "technology",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "vendor",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "capacity",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "installation_date",
+        "null_count": 0,
+        "null_pct": 0.0
+      },
+      {
+        "column": "status",
+        "null_count": 0,
+        "null_pct": 0.0
+      }
+    ]
+  }
+]

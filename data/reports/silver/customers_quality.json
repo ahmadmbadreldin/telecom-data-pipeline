@@ -1,0 +1,25 @@
+{
+  "dataset": "customers",
+  "processed_at_utc": "2026-10-08T08:18:15.808365+00:00",
+  "raw_rows": 100000,
+  "silver_rows": 100000,
+  "quarantined_rows": 0,
+  "quality_flags": {
+    "is_invalid_age": 0,
+    "is_age_group_mismatch": 1522,
+    "is_missing_age_group": 584,
+    "is_missing_customer_segment": 618,
+    "is_invalid_customer_segment": 0,
+    "is_invalid_subscription_status": 0,
+    "is_invalid_activation_date": 0,
+    "is_invalid_churn_date": 0,
+    "is_churn_before_activation": 0,
+    "is_cancelled_without_churn_date": 0,
+    "is_invalid_last_updated_at": 0,
+    "is_missing_customer_id": 0
+  },
+  "outputs": {
+    "silver": "/opt/telecom/data/processed/silver/customers",
+    "quarantine": "/opt/telecom/data/processed/quarantine/customers"
+  }
+}
