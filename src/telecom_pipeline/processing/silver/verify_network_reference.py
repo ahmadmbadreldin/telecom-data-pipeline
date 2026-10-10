@@ -1,3 +1,4 @@
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
 
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
@@ -7,7 +8,7 @@ from pyspark.sql.types import (
     DateType,
 )
 
-BASE = "/opt/telecom/data/processed/silver"
+BASE = str(SILVER)
 
 
 def main():

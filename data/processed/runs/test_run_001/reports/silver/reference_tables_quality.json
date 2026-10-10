@@ -1,0 +1,66 @@
+{
+  "pipeline": "reference_tables_silver",
+  "processed_at_utc": "2026-10-10T08:44:59.635052+00:00",
+  "tables": {
+    "plans": {
+      "raw_rows": 8,
+      "silver_rows": 8,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_missing_key": 0,
+        "is_missing_required_name": 0,
+        "is_invalid_plan_type": 0,
+        "is_invalid_monthly_fee": 0,
+        "is_invalid_data_limit": 0,
+        "is_invalid_voice_minutes": 0,
+        "is_invalid_sms_limit": 0,
+        "is_invalid_speed_limit": 0,
+        "is_invalid_effective_from": 0,
+        "is_invalid_effective_to": 0,
+        "is_invalid_date_range": 0,
+        "is_invalid_active_flag": 0,
+        "is_unlimited_data": 1
+      }
+    },
+    "services": {
+      "raw_rows": 5,
+      "silver_rows": 5,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_missing_key": 0,
+        "is_missing_service_name": 0,
+        "is_invalid_service_category": 0,
+        "is_invalid_technology": 0,
+        "is_invalid_active_flag": 0
+      }
+    },
+    "incident_types": {
+      "raw_rows": 5,
+      "silver_rows": 5,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_missing_key": 0,
+        "is_missing_code": 0,
+        "is_missing_name": 0,
+        "is_invalid_category": 0,
+        "is_invalid_severity": 0
+      }
+    },
+    "complaint_types": {
+      "raw_rows": 5,
+      "silver_rows": 5,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_missing_key": 0,
+        "is_missing_code": 0,
+        "is_missing_name": 0,
+        "is_invalid_category": 0,
+        "is_invalid_priority": 0
+      }
+    }
+  }
+}

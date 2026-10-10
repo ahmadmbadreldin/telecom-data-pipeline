@@ -23,6 +23,8 @@ This script reads Parquet only.
 It does not modify any dataset.
 """
 
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.types import (
@@ -33,10 +35,7 @@ from pyspark.sql.types import (
 )
 
 
-BASE = "/opt/telecom/data/processed"
-
-SILVER = f"{BASE}/silver"
-QUARANTINE = f"{BASE}/quarantine"
+BASE = str(SILVER.parent)
 
 TABLES = {
     "plans": {

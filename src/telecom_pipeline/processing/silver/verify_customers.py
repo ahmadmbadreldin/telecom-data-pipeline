@@ -1,7 +1,8 @@
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
 
 from pyspark.sql import SparkSession, functions as F
 
-PATH = "/opt/telecom/data/processed/silver/customers"
+PATH = str(SILVER / "customers")
 
 
 def main():

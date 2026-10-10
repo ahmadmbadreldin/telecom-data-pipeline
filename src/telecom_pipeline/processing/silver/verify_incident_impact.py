@@ -16,6 +16,8 @@ Checks:
 Read-only: does not modify data.
 """
 
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+
 import json
 from pathlib import Path
 
@@ -28,10 +30,8 @@ from pyspark.sql.types import (
     BooleanType,
 )
 
-BASE = Path("/opt/telecom/data")
-SILVER = BASE / "processed/silver"
-QUARANTINE = BASE / "processed/quarantine"
-REPORT = BASE / "reports/silver/incident_impact_quality.json"
+BASE = DATA_ROOT
+REPORT = REPORTS / "incident_impact_quality.json"
 
 EXPECTED = {
     "network_incidents_reference": 10000,

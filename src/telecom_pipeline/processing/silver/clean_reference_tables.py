@@ -21,6 +21,8 @@ Responsibilities:
 Final dimensions and business KPIs belong to dbt.
 """
 
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -34,17 +36,8 @@ from pyspark.sql.types import BooleanType
 # CONFIGURATION
 # ============================================================
 
-BASE = Path("/opt/telecom/data")
-
-RAW = BASE / "raw/batch"
-SILVER = BASE / "processed/silver"
-QUARANTINE = BASE / "processed/quarantine"
-
-REPORT = (
-    BASE
-    / "reports/silver/reference_tables_quality.json"
-)
-
+BASE = DATA_ROOT
+REPORT = REPORTS / "reference_tables_quality.json"
 
 CONFIG = {
     "plans": {

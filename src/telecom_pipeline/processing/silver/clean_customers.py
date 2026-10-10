@@ -47,6 +47,8 @@ Business analytics and dimensional modeling belong to dbt.
 تحفظ Silver بصيغة Parquet، مع Quality Report.
 """
 
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -63,15 +65,11 @@ from pyspark.sql.types import (
 # 1. CONFIGURATION
 # ==========================================================
 
-BASE = Path("/opt/telecom/data")
-
-INPUT_PATH = BASE / "raw/batch/customers.csv"
-
-SILVER_PATH = BASE / "processed/silver/customers"
-QUARANTINE_PATH = BASE / "processed/quarantine/customers"
-
-REPORT_PATH = BASE / "reports/silver/customers_quality.json"
-
+BASE = DATA_ROOT
+INPUT_PATH = RAW / "customers.csv"
+SILVER_PATH = SILVER / "customers"
+QUARANTINE_PATH = QUARANTINE / "customers"
+REPORT_PATH = REPORTS / "customers_quality.json"
 
 # All raw fields are initially strings.
 # Casting happens explicitly after raw ingestion.

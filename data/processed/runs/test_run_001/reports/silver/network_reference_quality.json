@@ -1,0 +1,38 @@
+{
+  "pipeline": "network_reference_silver",
+  "processed_at_utc": "2026-10-10T08:45:55.342348+00:00",
+  "areas": {
+    "raw_rows": 50,
+    "silver_rows": 50,
+    "quarantined_rows": 0,
+    "quality_flags": {
+      "is_missing_area_id": 0,
+      "is_duplicate_key": 0,
+      "is_invalid_coordinates": 0,
+      "is_missing_governorate": 1,
+      "is_missing_region": 2,
+      "is_invalid_population_density": 0
+    }
+  },
+  "towers": {
+    "raw_rows": 500,
+    "silver_rows": 500,
+    "quarantined_rows": 0,
+    "quality_flags": {
+      "is_missing_tower_id": 0,
+      "is_duplicate_key": 0,
+      "is_invalid_area_reference": 0,
+      "is_invalid_coordinates": 0,
+      "is_invalid_capacity": 0,
+      "is_suspicious_capacity": 1,
+      "is_invalid_status": 0,
+      "is_invalid_installation_date": 0
+    }
+  },
+  "outputs": {
+    "areas": "/opt/telecom/data/processed/runs/test_run_001/silver/areas",
+    "towers": "/opt/telecom/data/processed/runs/test_run_001/silver/towers",
+    "quarantine_areas": "/opt/telecom/data/processed/runs/test_run_001/quarantine/areas",
+    "quarantine_towers": "/opt/telecom/data/processed/runs/test_run_001/quarantine/towers"
+  }
+}

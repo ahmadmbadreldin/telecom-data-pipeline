@@ -17,6 +17,8 @@ Spark: cleaning, typing, validation, quality flags.
 dbt: facts, dimensions, SLA KPIs, NPS, impact analysis.
 """
 
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,11 +27,8 @@ from pyspark.sql import SparkSession, Window
 from pyspark.sql import functions as F
 
 
-BASE = Path("/opt/telecom/data")
-RAW = BASE / "raw/batch"
-SILVER = BASE / "processed/silver"
-QUARANTINE = BASE / "processed/quarantine"
-REPORT = BASE / "reports/silver/customer_feedback_quality.json"
+BASE = DATA_ROOT
+REPORT = REPORTS / "customer_feedback_quality.json"
 
 COMPLAINT_COLUMNS = [
     "complaint_id", "customer_id", "complaint_type_id",

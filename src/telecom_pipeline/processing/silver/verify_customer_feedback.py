@@ -12,6 +12,8 @@ Read-only verification:
 - Referential integrity
 """
 
+from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+
 import json
 from pathlib import Path
 
@@ -24,10 +26,8 @@ from pyspark.sql.types import (
     BooleanType,
 )
 
-BASE = Path("/opt/telecom/data")
-SILVER = BASE / "processed/silver"
-QUARANTINE = BASE / "processed/quarantine"
-REPORT = BASE / "reports/silver/customer_feedback_quality.json"
+BASE = DATA_ROOT
+REPORT = REPORTS / "customer_feedback_quality.json"
 
 EXPECTED_RAW = {
     "complaints": 75000,

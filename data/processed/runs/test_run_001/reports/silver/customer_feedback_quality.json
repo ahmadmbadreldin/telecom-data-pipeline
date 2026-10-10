@@ -1,0 +1,63 @@
+{
+  "pipeline": "customer_feedback_silver",
+  "processed_at_utc": "2026-10-10T08:47:56.963026+00:00",
+  "tables": {
+    "complaints": {
+      "raw_rows": 75000,
+      "silver_rows": 75000,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_invalid_customer_reference": 0,
+        "is_missing_key": 0,
+        "is_invalid_complaint_type": 0,
+        "is_invalid_created_timestamp": 0,
+        "is_invalid_resolved_timestamp": 0,
+        "is_resolution_before_creation": 0,
+        "is_closed_without_resolution": 0,
+        "is_open_with_resolution": 0,
+        "is_invalid_status": 0,
+        "is_invalid_priority": 0,
+        "is_invalid_channel": 0,
+        "is_missing_complaint_text": 1504,
+        "is_standalone_complaint": 7500,
+        "is_invalid_resolution_minutes": 0,
+        "is_invalid_sla_breached": 0,
+        "is_resolution_duration_mismatch": 0,
+        "is_closed_without_duration": 0,
+        "is_invalid_incident_reference": 0,
+        "is_unknown_complaint_type": 0
+      }
+    },
+    "customer_experience": {
+      "raw_rows": 150000,
+      "silver_rows": 150000,
+      "quarantined_rows": 0,
+      "quality_flags": {
+        "is_duplicate_key": 0,
+        "is_invalid_customer_reference": 0,
+        "is_missing_key": 0,
+        "is_invalid_event_timestamp": 0,
+        "is_invalid_channel": 0,
+        "is_invalid_rating": 0,
+        "is_missing_rating": 722,
+        "is_boundary_rating": 8333,
+        "is_invalid_satisfaction_score": 0,
+        "is_missing_satisfaction_score": 767,
+        "is_boundary_satisfaction_score": 7325,
+        "is_invalid_nps_score": 0,
+        "is_missing_nps_score": 725,
+        "is_boundary_nps_score": 17608,
+        "is_invalid_call_quality_score": 0,
+        "is_missing_call_quality_score": 711,
+        "is_boundary_call_quality_score": 8767,
+        "is_invalid_internet_experience_score": 0,
+        "is_missing_internet_experience_score": 696,
+        "is_boundary_internet_experience_score": 9904,
+        "is_invalid_network_quality_score": 0,
+        "is_missing_network_quality_score": 778,
+        "is_boundary_network_quality_score": 638
+      }
+    }
+  }
+}
