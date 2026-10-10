@@ -7,3 +7,4 @@ logs/
 .airflow/
 target/
 dbt_packages/
+.secrets/

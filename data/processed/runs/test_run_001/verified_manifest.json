@@ -1,0 +1,88 @@
+{
+  "run_id": "test_run_001",
+  "verified_at_utc": "2026-10-10T09:48:27.416065+00:00",
+  "verification_scripts": [
+    "verify_reference_tables.py",
+    "verify_network_reference.py",
+    "verify_customers.py",
+    "verify_incident_impact.py",
+    "verify_customer_feedback.py"
+  ],
+  "files": [
+    {
+      "path": "areas/part-00000-5dea9f03-5911-43f3-97bb-00b20fa3cffd-c000.snappy.parquet",
+      "size": 6240,
+      "sha256": "eb15cd65ff4020ff8bccab7e4db3919db6a637d1715de0d6e29380258ad09bac"
+    },
+    {
+      "path": "towers/part-00000-15306f8a-b51d-4fde-a9a6-0479761bd2e7-c000.snappy.parquet",
+      "size": 22783,
+      "sha256": "2479e30736b295cdbe56ae5813d3ce84b3f0e93e0f10db13914ef237fb9d6d3b"
+    },
+    {
+      "path": "plans/part-00000-f032684c-50bf-4a67-b4ef-0442ef42711c-c000.snappy.parquet",
+      "size": 6975,
+      "sha256": "3677b99e53397e61d97bc9532a988f128a230b4d4d9e9cc3ad4155875781c2b5"
+    },
+    {
+      "path": "services/part-00000-8cdbc54c-5971-43ae-9597-e1c6d081b9e1-c000.snappy.parquet",
+      "size": 3666,
+      "sha256": "9889505148434d804d64abc971645980bc67c78390c461ce2482c223df06a5ef"
+    },
+    {
+      "path": "incident_types/part-00000-5e17e9b6-2c92-4f7c-acaf-54dabae9fccc-c000.snappy.parquet",
+      "size": 3836,
+      "sha256": "2ae0de97ed92a7b49ab7721c825d681d1a3e486e968189161244190c40b4b8ec"
+    },
+    {
+      "path": "complaint_types/part-00000-fe1713c4-a8e7-4c97-b2bc-17dde008f0d0-c000.snappy.parquet",
+      "size": 3758,
+      "sha256": "8f3dfee8770e5340c8db535fe1bd8ff0eba3cc4e8a8699e1af7b63521c6f662d"
+    },
+    {
+      "path": "customers/part-00000-6f8702f5-e524-4b00-bfd6-d3914060a2f9-c000.snappy.parquet",
+      "size": 699240,
+      "sha256": "232be09aa64bd18359355900d0663341c8d33b5cce91997be50a0f6d47b2ef3d"
+    },
+    {
+      "path": "customers/part-00001-6f8702f5-e524-4b00-bfd6-d3914060a2f9-c000.snappy.parquet",
+      "size": 326327,
+      "sha256": "277e3853daa9e376ff5e63ed5d750e20b9ccd30adc4c6452e8c2367221cd00c2"
+    },
+    {
+      "path": "network_incidents_reference/part-00000-34eea303-dc44-4243-ad38-1851a3eb052f-c000.snappy.parquet",
+      "size": 528679,
+      "sha256": "fdf3157a7bc6ea985b7a3f1d72998ebc9aa6c8e079dd637c1d1c92dbd360c126"
+    },
+    {
+      "path": "bridge_incident_customer/part-00000-0fc3bf03-2f53-4ed0-8c7c-a73853b5f277-c000.snappy.parquet",
+      "size": 8681667,
+      "sha256": "dd42181a5ce69a4bf0b3f6346b5b29b2e949397d06fe63c5b3f0956527a8014b"
+    },
+    {
+      "path": "bridge_incident_customer/part-00001-0fc3bf03-2f53-4ed0-8c7c-a73853b5f277-c000.snappy.parquet",
+      "size": 8802465,
+      "sha256": "eb393dda645bf7ddf79dcef6bd32fe030c80b663ceb303b62f4bd99d19f2b09b"
+    },
+    {
+      "path": "complaints/part-00000-b554676d-1e4a-40fc-8413-392ebadd4804-c000.snappy.parquet",
+      "size": 1368091,
+      "sha256": "822f21a8ff520485b2eefa1ad93e7ea546af4a66e66fc1b797ccb2163110fe87"
+    },
+    {
+      "path": "complaints/part-00001-b554676d-1e4a-40fc-8413-392ebadd4804-c000.snappy.parquet",
+      "size": 1372590,
+      "sha256": "60e8334dc23489a5abdc7a18ce6b9fc78597aaf6c4e6aaff4a9da0e41de9dd9e"
+    },
+    {
+      "path": "customer_experience/part-00000-74ba278b-1760-4e56-81dc-1d8bf85a95b7-c000.snappy.parquet",
+      "size": 2097730,
+      "sha256": "d0d8a340b59b9e2179e1714e984db08324d945dec2087efa212c57b218c9d26a"
+    },
+    {
+      "path": "customer_experience/part-00001-74ba278b-1760-4e56-81dc-1d8bf85a95b7-c000.snappy.parquet",
+      "size": 2095692,
+      "sha256": "7f1ce831852e601679e81793b5a1de93e8cb8d84ca2842ce74c69688f349e012"
+    }
+  ]
+}
