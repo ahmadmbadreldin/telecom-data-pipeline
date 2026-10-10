@@ -141,7 +141,7 @@ def expected_age_group(age_column):
             age_column.between(56, 65), "56-65"
         )
         .when(
-            age_column.between(66, 100), "66+"
+            age_column.between(66, 150), "66+"
         )
     )
 
@@ -309,7 +309,7 @@ def validate_and_correct(df):
         F.col("age_raw").isNotNull()
         & (
             F.col("age").isNull()
-            | ~F.col("age").between(18, 100)
+            | ~F.col("age").between(18, 150)
         )
     )
 
