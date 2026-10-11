@@ -1,1 +1,13 @@
 # Configure your dbt project before execution.
+name: 'telecom_analytics'
+version: '1.0.0'
+config-version: 2
+
+profile: 'telecom_snowflake'
+
+model-paths: ["models"]
+
+models:
+  telecom_analytics:
+    +materialized: table
+    +database: TELECOM_DWH
