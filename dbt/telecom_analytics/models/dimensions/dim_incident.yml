@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: dim_incident
+    description: "Incident dimension containing network incident attributes."
+
+    columns:
+      - name: incident_key
+        description: "Deterministic surrogate key generated from incident_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: incident_id
+        description: "Original business identifier of the incident."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: severity
+        description: "Severity level of the incident."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
+
+      - name: incident_status
+        description: "Current incident status."
+        data_tests:
+          - not_null
+
+      - name: root_cause
+        description: "Root cause of the incident. NULL values are allowed."

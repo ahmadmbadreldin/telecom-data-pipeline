@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fact_customer_complaint
+    description: "One row per customer complaint."
+
+    columns:
+      - name: complaint_key
+        data_tests:
+          - unique
+          - not_null
+
+      - name: complaint_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+
+      - name: complaint_type_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_complaint_type')
+                field: complaint_type_key
+
+      - name: incident_key
+        description: "Nullable for standalone complaints."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_incident')
+                field: incident_key
+
+      - name: created_date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: resolved_date_key
+        description: "Nullable when the complaint has no resolution timestamp."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key

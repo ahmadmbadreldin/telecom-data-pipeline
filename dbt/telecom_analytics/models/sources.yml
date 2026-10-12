@@ -1,0 +1,52 @@
+version: 2
+
+sources:
+  - name: telecom_staging
+    database: TELECOM_DWH
+    schema: STAGING
+    description: "Processed telecom data loaded into Snowflake"
+
+    tables:
+      - name: stg_areas
+        identifier: STG_AREAS
+        description: "Source data for the Area Dimension"
+
+      - name: stg_towers
+        identifier: STG_TOWERS
+        description: "Source data for the Tower Dimension"
+
+      - name: stg_customers
+        identifier: STG_CUSTOMERS
+        description: "Processed customer data for the Customer Dimension"
+
+      - name: stg_plans
+        identifier: STG_PLANS
+        description: "Processed telecom subscription plans"
+
+      - name: stg_services
+        identifier: STG_SERVICES
+        description: "Processed telecom services"
+
+      - name: stg_network_incidents_reference
+        identifier: STG_NETWORK_INCIDENTS_REFERENCE
+        description: "Processed network incident reference data"
+
+      - name: stg_incident_types
+        identifier: STG_INCIDENT_TYPES
+        description: "Network incident type reference data"
+
+      - name: stg_complaint_types
+        identifier: STG_COMPLAINT_TYPES
+        description: "Complaint type reference data"
+
+      - name: stg_bridge_incident_customer
+        identifier: STG_BRIDGE_INCIDENT_CUSTOMER
+
+      - name: stg_complaints
+        identifier: STG_COMPLAINTS
+
+      - name: stg_customer_experience
+        identifier: STG_CUSTOMER_EXPERIENCE
+
+      - name: stg_network_events
+        identifier: STG_NETWORK_EVENTS

@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: dim_tower
+    description: "Tower dimension containing network tower attributes and area relationships."
+
+    columns:
+      - name: tower_key
+        description: "Deterministic surrogate key generated from tower_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: tower_id
+        description: "Original business identifier of the tower."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: area_key
+        description: "Foreign key referencing DIM_AREA."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_area')
+                field: area_key
+
+      - name: tower_name
+        description: "Name of the tower."
+
+      - name: tower_type
+        description: "Type of network tower."
+
+      - name: technology
+        description: "Network technology supported by the tower."
+
+      - name: vendor
+        description: "Tower equipment vendor."
+
+      - name: capacity
+        description: "Tower capacity. Suspicious values are preserved for review."
+
+      - name: installation_date
+        description: "Tower installation date."
+
+      - name: status
+        description: "Operational status of the tower."
+
+      - name: latitude
+        description: "Tower latitude."
+
+      - name: longitude
+        description: "Tower longitude."

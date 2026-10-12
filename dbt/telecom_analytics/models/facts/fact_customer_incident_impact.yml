@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: fact_customer_incident_impact
+    description: "One row per incident-customer pair, recording customer impact duration."
+
+    columns:
+      - name: incident_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_incident')
+                field: incident_key
+
+      - name: customer_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+
+      - name: impact_start_date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: impact_end_date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: impact_duration_minutes
+        data_tests:
+          - not_null
