@@ -1,4 +1,3 @@
-
 name: telecom-data-pipeline
 
 services:
@@ -36,6 +35,7 @@ services:
     networks:
       - telecom_network
 
+
   # ==========================================
   # Apache Spark Master
   # ==========================================
@@ -60,6 +60,7 @@ services:
 
     networks:
       - telecom_network
+
 
   # ==========================================
   # Apache Spark Worker
@@ -89,6 +90,7 @@ services:
     networks:
       - telecom_network
 
+
   # ==========================================
   # Spark Client - Job Submission
   # ==========================================
@@ -117,6 +119,234 @@ services:
       - spark-master
       - spark-worker
 
+
+  # ==========================================
+  # SeaweedFS Master
+  # Secondary / DR Storage
+  # ==========================================
+  seaweed-master:
+    image: chrislusf/seaweedfs:latest
+    restart: unless-stopped
+
+    command:
+      - master
+      - -ip=seaweed-master
+      - -mdir=/data
+
+    ports:
+      - "127.0.0.1:9333:9333"
+
+    volumes:
+      - seaweed_master_data:/data
+
+    networks:
+      - telecom_network
+
+
+  # ==========================================
+  # SeaweedFS Volume Server
+  # ==========================================
+  seaweed-volume:
+    image: chrislusf/seaweedfs:latest
+    restart: unless-stopped
+
+    depends_on:
+      - seaweed-master
+
+    command:
+      - volume
+      - -mserver=seaweed-master:9333
+      - -port=8080
+      - -dir=/data
+
+    ports:
+      - "127.0.0.1:8082:8080"
+
+    volumes:
+      - seaweed_volume_data:/data
+
+    networks:
+      - telecom_network
+
+
+  # ==========================================
+  # SeaweedFS Filer
+  # ==========================================
+  seaweed-filer:
+    image: chrislusf/seaweedfs:latest
+    restart: unless-stopped
+
+    depends_on:
+      - seaweed-master
+      - seaweed-volume
+
+    command:
+      - filer
+      - -master=seaweed-master:9333
+
+    ports:
+      - "127.0.0.1:8888:8888"
+
+    volumes:
+      - seaweed_filer_data:/data
+
+    networks:
+      - telecom_network
+
+
+  # ==========================================
+  # SeaweedFS S3 Gateway
+  # ==========================================
+  seaweed-s3:
+    image: chrislusf/seaweedfs:latest
+    restart: unless-stopped
+
+    depends_on:
+      - seaweed-filer
+
+    command:
+      - s3
+      - -filer=seaweed-filer:8888
+      - -port=8333
+      - -config=/etc/seaweedfs/s3.json
+
+    ports:
+      - "127.0.0.1:8333:8333"
+
+    volumes:
+      - ./s3.json:/etc/seaweedfs/s3.json:ro
+
+    networks:
+      - telecom_network
+
+
+  # ==========================================
+  # PostgreSQL - Airflow Metadata Database
+  # ==========================================
+  airflow-postgres:
+    image: postgres:15
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+
+    volumes:
+      - airflow_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow -d airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - telecom_network
+
+
+  # ==========================================
+  # Airflow Init
+  # Initialize Airflow Metadata Database
+  # ==========================================
+  airflow-init:
+    image: apache/airflow:2.10.5
+    restart: "no"
+    command: version
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+
+      _AIRFLOW_DB_MIGRATE: "true"
+
+      _AIRFLOW_WWW_USER_CREATE: "true"
+      _AIRFLOW_WWW_USER_USERNAME: airflow
+      _AIRFLOW_WWW_USER_PASSWORD: airflow
+      _AIRFLOW_WWW_USER_FIRSTNAME: Abdelrhman
+      _AIRFLOW_WWW_USER_LASTNAME: Desouky
+      _AIRFLOW_WWW_USER_ROLE: Admin
+      _AIRFLOW_WWW_USER_EMAIL: admin@telecom.local
+
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./src:/opt/telecom/src
+      - ./data:/opt/telecom/data
+
+    networks:
+      - telecom_network
+
+  # ==========================================
+  # Airflow Webserver
+  # ==========================================
+  airflow-webserver:
+    image: apache/airflow:2.10.5
+    restart: unless-stopped
+
+    command: webserver
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./src:/opt/telecom/src
+      - ./data:/opt/telecom/data
+
+    networks:
+      - telecom_network
+
+
+  # ==========================================
+  # Airflow Scheduler
+  # ==========================================
+  airflow-scheduler:
+    image: apache/airflow:2.10.5
+    restart: unless-stopped
+
+    command: scheduler
+
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./src:/opt/telecom/src
+      - ./data:/opt/telecom/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    networks:
+      - telecom_network
 # ==========================================
 # Docker Network
 # ==========================================
@@ -124,8 +354,13 @@ networks:
   telecom_network:
     driver: bridge
 
+
 # ==========================================
 # Persistent Volumes
 # ==========================================
 volumes:
   kafka_data:
+  seaweed_master_data:
+  seaweed_volume_data:
+  seaweed_filer_data:
+  airflow_postgres_data:
