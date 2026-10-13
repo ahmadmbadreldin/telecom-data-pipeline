@@ -1,6 +1,6 @@
-
 """
 Telecom Data Pipeline
+
 Spark Silver - Reference Tables
 
 Tables:
@@ -16,6 +16,8 @@ Responsibilities:
     - Validate business rules
     - Detect duplicate keys
     - Separate Silver and Quarantine
+    - Write Silver locally
+    - Write Silver backup to SeaweedFS
     - Generate quality report
 
 Final dimensions and business KPIs belong to dbt.
@@ -25,7 +27,6 @@ from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
 
 import json
 from datetime import datetime, timezone
-from pathlib import Path
 
 from pyspark.sql import SparkSession, Window
 from pyspark.sql import functions as F
@@ -38,6 +39,10 @@ from pyspark.sql.types import BooleanType
 
 BASE = DATA_ROOT
 REPORT = REPORTS / "reference_tables_quality.json"
+
+# SeaweedFS Silver destination
+SEAWEED_SILVER_BASE = "s3a://telecom-silver"
+
 
 CONFIG = {
     "plans": {
@@ -56,6 +61,7 @@ CONFIG = {
             "is_active",
         ],
     },
+
     "services": {
         "key": "service_id",
         "columns": [
@@ -67,6 +73,7 @@ CONFIG = {
             "is_active",
         ],
     },
+
     "incident_types": {
         "key": "incident_type_id",
         "columns": [
@@ -78,6 +85,7 @@ CONFIG = {
             "description",
         ],
     },
+
     "complaint_types": {
         "key": "complaint_type_id",
         "columns": [
@@ -97,6 +105,7 @@ CONFIG = {
 # ============================================================
 
 def read_csv(spark, table):
+
     path = RAW / f"{table}.csv"
 
     if not path.exists():
@@ -125,6 +134,7 @@ def read_csv(spark, table):
 
 
 def clean_string(name):
+
     value = F.regexp_replace(
         F.trim(F.col(name)),
         r"\s+",
@@ -138,6 +148,7 @@ def clean_string(name):
 
 
 def normalize_text(df):
+
     for column in df.columns:
         df = df.withColumn(
             column,
@@ -156,18 +167,21 @@ def uppercase(name):
 
 
 def cast_number(name, sql_type):
+
     return F.expr(
         f"try_cast(`{name}` AS {sql_type})"
     )
 
 
 def cast_date(name):
+
     return F.expr(
         f"try_cast(`{name}` AS DATE)"
     )
 
 
 def cast_boolean(name):
+
     value = F.lower(F.trim(F.col(name)))
 
     return (
@@ -186,6 +200,7 @@ def cast_boolean(name):
 
 
 def flag_duplicate_keys(df, key):
+
     window = Window.partitionBy(key)
 
     return df.withColumn(
@@ -195,7 +210,9 @@ def flag_duplicate_keys(df, key):
 
 
 def add_flags(df, expressions):
+
     for flag_name, expression in expressions.items():
+
         df = df.withColumn(
             flag_name,
             F.coalesce(
@@ -208,6 +225,7 @@ def add_flags(df, expressions):
 
 
 def write_parquet(df, path):
+
     (
         df.write
         .mode("overwrite")
@@ -228,7 +246,7 @@ def clean_plans(df):
 
     df = normalize_text(df)
 
-    # Preserve original values for auditing.
+    # Preserve original values for auditing
     raw_columns = [
         "monthly_fee",
         "data_limit_gb",
@@ -241,6 +259,7 @@ def clean_plans(df):
     ]
 
     for col in raw_columns:
+
         df = df.withColumn(
             f"{col}_raw",
             F.col(col)
@@ -311,6 +330,7 @@ def clean_plans(df):
     )
 
     df = add_flags(df, {
+
         "is_missing_key":
             F.col("plan_id").isNull(),
 
@@ -364,7 +384,7 @@ def clean_plans(df):
         "is_invalid_active_flag":
             F.col("is_active").isNull(),
 
-        # Null is valid for unlimited data plans.
+        # Null is valid for unlimited data plans
         "is_unlimited_data":
             F.col("data_limit_gb").isNull()
             & F.col("data_limit_gb_raw").isNull(),
@@ -433,6 +453,7 @@ def clean_services(df):
     )
 
     df = add_flags(df, {
+
         "is_missing_key":
             F.col("service_id").isNull(),
 
@@ -523,6 +544,7 @@ def clean_incident_types(df):
     )
 
     df = add_flags(df, {
+
         "is_missing_key":
             F.col("incident_type_id").isNull()
             | (F.col("incident_type_id") <= 0),
@@ -614,6 +636,7 @@ def clean_complaint_types(df):
     )
 
     df = add_flags(df, {
+
         "is_missing_key":
             F.col("complaint_type_id").isNull()
             | (F.col("complaint_type_id") <= 0),
@@ -662,6 +685,7 @@ def save_table(df, name, critical_flags):
     quarantine_condition = F.lit(False)
 
     for flag in critical_flags:
+
         quarantine_condition = (
             quarantine_condition | F.col(flag)
         )
@@ -674,9 +698,7 @@ def save_table(df, name, critical_flags):
         )
     )
 
-    # FIX: Only count actual boolean quality flags.
-    # Excludes is_active_raw (STRING)
-    # and is_active (business attribute).
+    # Only count actual boolean quality flags
     flag_columns = [
         field.name
         for field in df.schema.fields
@@ -692,6 +714,7 @@ def save_table(df, name, critical_flags):
     ]
 
     metrics = df.agg(
+
         F.count("*").alias("raw_rows"),
 
         F.sum(
@@ -708,8 +731,10 @@ def save_table(df, name, critical_flags):
                     1
                 ).otherwise(0)
             ).alias(flag)
+
             for flag in flag_columns
         ]
+
     ).first().asDict()
 
     raw_rows = int(
@@ -720,9 +745,10 @@ def save_table(df, name, critical_flags):
         metrics.pop("quarantined_rows") or 0
     )
 
-    # Preserve audit values only in Quarantine.
+    # Preserve audit values only in Quarantine
     audit_columns = [
-        col for col in df.columns
+        col
+        for col in df.columns
         if col.endswith("_raw")
     ]
 
@@ -739,9 +765,65 @@ def save_table(df, name, critical_flags):
         F.col("is_quarantined")
     )
 
+    # ========================================================
+    # 1. WRITE LOCAL SILVER
+    # ========================================================
+
+    local_silver_path = str(
+        SILVER / name
+    )
+
+    print(
+        f"[{name.upper()}] "
+        f"Writing Local Silver -> {local_silver_path}",
+        flush=True
+    )
+
     write_parquet(
         silver_df,
         SILVER / name
+    )
+
+    print(
+        f"[{name.upper()}] Local Silver completed.",
+        flush=True
+    )
+
+    # ========================================================
+    # 2. WRITE SEAWEEDFS SILVER
+    # ========================================================
+
+    seaweed_silver_path = (
+        f"{SEAWEED_SILVER_BASE}/{name}/"
+    )
+
+    print(
+        f"[{name.upper()}] "
+        f"Writing SeaweedFS Silver -> "
+        f"{seaweed_silver_path}",
+        flush=True
+    )
+
+    (
+        silver_df.write
+        .mode("overwrite")
+        .parquet(
+            seaweed_silver_path
+        )
+    )
+
+    print(
+        f"[{name.upper()}] "
+        "SeaweedFS Silver backup completed.",
+        flush=True
+    )
+
+    # ========================================================
+    # 3. WRITE LOCAL QUARANTINE
+    # ========================================================
+
+    quarantine_path = str(
+        QUARANTINE / name
     )
 
     write_parquet(
@@ -749,13 +831,34 @@ def save_table(df, name, critical_flags):
         QUARANTINE / name
     )
 
+    # ========================================================
+    # REPORT RESULT
+    # ========================================================
+
     result = {
+
         "raw_rows": raw_rows,
-        "silver_rows": raw_rows - rejected,
-        "quarantined_rows": rejected,
+
+        "silver_rows":
+            raw_rows - rejected,
+
+        "quarantined_rows":
+            rejected,
+
         "quality_flags": {
             key: int(value or 0)
             for key, value in metrics.items()
+        },
+
+        "outputs": {
+            "local_silver":
+                local_silver_path,
+
+            "seaweedfs_silver":
+                seaweed_silver_path,
+
+            "quarantine":
+                quarantine_path,
         },
     }
 
@@ -778,28 +881,77 @@ def main():
 
     spark = (
         SparkSession.builder
+
         .appName(
             "Telecom-Reference-Tables-Silver"
         )
+
+        # ====================================================
+        # SEAWEEDFS S3A CONFIGURATION
+        # ====================================================
+
+        .config(
+            "spark.hadoop.fs.s3a.endpoint",
+            "http://seaweed-s3:8333"
+        )
+
+        .config(
+            "spark.hadoop.fs.s3a.path.style.access",
+            "true"
+        )
+
+        .config(
+            "spark.hadoop.fs.s3a.connection.ssl.enabled",
+            "false"
+        )
+
+        .config(
+            "spark.hadoop.fs.s3a.aws.credentials.provider",
+            "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider"
+        )
+        .config(
+            "spark.hadoop.fs.s3a.access.key",
+            "SPARK_TELECOM"
+        )
+        .config(
+            "spark.hadoop.fs.s3a.secret.key",
+            "SparkSeaweed2026SecureKey"
+        )
+
         .getOrCreate()
     )
 
-    spark.sparkContext.setLogLevel("WARN")
+    spark.sparkContext.setLogLevel(
+        "WARN"
+    )
 
     try:
 
         processors = {
-            "plans": clean_plans,
-            "services": clean_services,
-            "incident_types": clean_incident_types,
-            "complaint_types": clean_complaint_types,
+
+            "plans":
+                clean_plans,
+
+            "services":
+                clean_services,
+
+            "incident_types":
+                clean_incident_types,
+
+            "complaint_types":
+                clean_complaint_types,
         }
 
         report = {
-            "pipeline": "reference_tables_silver",
-            "processed_at_utc": datetime.now(
-                timezone.utc
-            ).isoformat(),
+
+            "pipeline":
+                "reference_tables_silver",
+
+            "processed_at_utc":
+                datetime.now(
+                    timezone.utc
+                ).isoformat(),
+
             "tables": {},
         }
 
@@ -816,7 +968,9 @@ def main():
             )
 
             cleaned_df, critical_flags = (
-                processor(raw_df)
+                processor(
+                    raw_df
+                )
             )
 
             report["tables"][table_name] = (
@@ -827,6 +981,10 @@ def main():
                 )
             )
 
+        # ====================================================
+        # WRITE QUALITY REPORT
+        # ====================================================
+
         REPORT.parent.mkdir(
             parents=True,
             exist_ok=True
@@ -836,6 +994,7 @@ def main():
             "w",
             encoding="utf-8"
         ) as file:
+
             json.dump(
                 report,
                 file,
@@ -847,7 +1006,10 @@ def main():
         )
 
         print(
-            json.dumps(report, indent=2)
+            json.dumps(
+                report,
+                indent=2
+            )
         )
 
         print(
@@ -855,7 +1017,24 @@ def main():
             flush=True
         )
 
+        # ====================================================
+        # SEAWEEDFS OUTPUT SUMMARY
+        # ====================================================
+
+        print(
+            "\nSeaweedFS outputs:",
+            flush=True
+        )
+
+        for table_name in processors:
+
+            print(
+                f"  {SEAWEED_SILVER_BASE}/{table_name}/",
+                flush=True
+            )
+
     finally:
+
         spark.stop()
 
 
