@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: dim_incident_type
+    description: "Network incident types dimension."
+
+    columns:
+      - name: incident_type_key
+        description: "Surrogate key derived from incident_type_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: incident_type_id
+        description: "Original incident type business key."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: incident_type_code
+        description: "Unique code identifying the incident type."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: incident_type_name
+        description: "Name of the incident type."
+        data_tests:
+          - not_null
+
+      - name: category
+        description: "Incident category."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Performance', 'Quality', 'Availability']
+
+      - name: default_severity
+        description: "Default severity for this incident type."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
+
+      - name: description
+        description: "Description of the incident type."

@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: fact_network_incident
+    description: "One row per network incident."
+
+    columns:
+      - name: incident_key
+        description: "Unique incident dimension key."
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_incident')
+                field: incident_key
+
+      - name: tower_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_tower')
+                field: tower_key
+
+      - name: incident_type_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_incident_type')
+                field: incident_type_key
+
+      - name: date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: area_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_area')
+                field: area_key

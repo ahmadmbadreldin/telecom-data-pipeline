@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Calendar dimension covering 2019 through 2030."
+
+    columns:
+      - name: date_key
+        description: "Primary key in YYYYMMDD format."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: full_date
+        description: "Actual calendar date."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: day
+        description: "Day of the month."
+        data_tests:
+          - not_null
+
+      - name: month
+        description: "Month number."
+        data_tests:
+          - not_null
+
+      - name: month_name
+        description: "Month name."
+
+      - name: quarter
+        description: "Calendar quarter."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4]
+                quote: false
+
+      - name: year
+        description: "Calendar year."
+        data_tests:
+          - not_null
+
+      - name: day_of_week
+        description: "ISO day number, Monday=1 through Sunday=7."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6, 7]
+                quote: false
+
+      - name: is_weekend
+        description: "TRUE for Friday and Saturday."
+        data_tests:
+          - not_null

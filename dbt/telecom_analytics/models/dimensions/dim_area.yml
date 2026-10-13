@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: dim_area
+    description: "Area dimension containing geographic information for telecom network analysis."
+
+    columns:
+      - name: area_key
+        description: "Deterministic surrogate key generated from area_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: area_id
+        description: "Original business identifier of the area."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: area_name
+        description: "Name of the geographic area."
+        data_tests:
+          - not_null
+
+      - name: city
+        description: "City associated with the area."
+
+      - name: governorate
+        description: "Governorate of the area. NULL values are allowed."
+
+      - name: region
+        description: "Geographic region. NULL values are allowed."
+
+      - name: country
+        description: "Country of the area."
+
+      - name: latitude
+        description: "Geographic latitude."
+
+      - name: longitude
+        description: "Geographic longitude."
+
+      - name: population_density
+        description: "Population density of the area."

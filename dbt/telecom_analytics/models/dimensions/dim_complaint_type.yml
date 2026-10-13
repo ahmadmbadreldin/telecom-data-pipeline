@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: dim_complaint_type
+    description: "Telecom customer complaint types dimension."
+
+    columns:
+      - name: complaint_type_key
+        description: "Deterministic surrogate key generated from complaint_type_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: complaint_type_id
+        description: "Original complaint type business key."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: complaint_code
+        description: "Unique code identifying the complaint type."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: complaint_name
+        description: "Name of the complaint type."
+        data_tests:
+          - not_null
+
+      - name: category
+        description: "Complaint category."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Network', 'Billing', 'Service']
+
+      - name: default_priority
+        description: "Default priority for this complaint type."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
+
+      - name: description
+        description: "Description of the complaint type."

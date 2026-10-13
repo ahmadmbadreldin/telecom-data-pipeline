@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: dim_plan
+    description: "Telecom subscription plans dimension."
+
+    columns:
+      - name: plan_key
+        description: "Deterministic surrogate key generated from plan_id."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: plan_id
+        description: "Original business key of the plan."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: plan_name
+        description: "Name of the subscription plan."
+        data_tests:
+          - not_null
+
+      - name: plan_type
+        description: "Prepaid or Postpaid."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Prepaid', 'Postpaid']
+
+      - name: monthly_fee
+        description: "Monthly subscription fee."
+        data_tests:
+          - not_null
+
+      - name: data_limit_gb
+        description: "Data allowance in GB. NULL is allowed for unlimited plans."
+
+      - name: is_unlimited_data
+        description: "Indicates whether the plan has unlimited data."
+        data_tests:
+          - not_null
+
+      - name: effective_from
+        description: "Plan effective start date."
+
+      - name: effective_to
+        description: "Plan effective end date."
+
+      - name: is_active
+        description: "Whether the plan is active."
