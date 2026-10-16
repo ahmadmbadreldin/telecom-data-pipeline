@@ -12,7 +12,14 @@ Read-only verification:
 - Referential integrity
 """
 
-from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+from pipeline_paths import (
+    DATA_ROOT,
+    RAW,
+    SILVER,
+    SHARED_SILVER,
+    QUARANTINE,
+    REPORTS,
+)
 
 import json
 from pathlib import Path
@@ -110,7 +117,7 @@ def verify_common(spark, table, report):
     )
 
     customers = (
-        spark.read.parquet(str(SILVER / "customers"))
+        spark.read.parquet(str(SHARED_SILVER / "customers"))
         .select("customer_id")
         .distinct()
     )

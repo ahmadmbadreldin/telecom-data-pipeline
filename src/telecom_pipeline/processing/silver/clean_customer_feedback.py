@@ -20,7 +20,14 @@ Spark: cleaning, typing, validation, quality flags.
 dbt: facts, dimensions, SLA KPIs, NPS, impact analysis.
 """
 
-from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+from pipeline_paths import (
+    DATA_ROOT,
+    RAW,
+    SILVER,
+    SHARED_SILVER,
+    QUARANTINE,
+    REPORTS,
+)
 
 import json
 from datetime import datetime, timezone
@@ -211,7 +218,7 @@ def add_customer_reference_flag(df, spark):
     customers = (
         spark.read
         .parquet(
-            str(SILVER / "customers")
+            str(SHARED_SILVER / "customers")
         )
         .select("customer_id")
         .distinct()
@@ -857,7 +864,7 @@ def process_complaints(spark):
 
         .parquet(
             str(
-                SILVER
+                SHARED_SILVER
                 / "complaint_types"
             )
         )
@@ -1213,13 +1220,13 @@ def main():
             "spark.hadoop.fs.s3a.aws.credentials.provider",
             "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider"
         )
-        .config(
+       .config(
             "spark.hadoop.fs.s3a.access.key",
-            "SPARK_TELECOM"
+            "SNOWFLAKE_TELECOM"
         )
         .config(
             "spark.hadoop.fs.s3a.secret.key",
-            "SparkSeaweed2026SecureKey"
+            "TelecomSeaweed2026SecureKey"
         )
 
         .getOrCreate()

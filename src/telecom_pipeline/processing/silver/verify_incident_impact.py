@@ -16,7 +16,7 @@ Checks:
 Read-only: does not modify data.
 """
 
-from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+from pipeline_paths import DATA_ROOT, RAW, SILVER, SHARED_SILVER, QUARANTINE, REPORTS
 
 import json
 from pathlib import Path
@@ -196,7 +196,7 @@ def verify_incidents(spark, df):
     )
 
     towers = (
-        spark.read.parquet(str(SILVER / "towers"))
+        spark.read.parquet(str(SHARED_SILVER / "towers"))
         .select(
             "tower_id",
             F.col("area_id").alias("tower_area")
@@ -217,7 +217,7 @@ def verify_incidents(spark, df):
     )
 
     types = (
-        spark.read.parquet(str(SILVER / "incident_types"))
+        spark.read.parquet(str(SHARED_SILVER / "incident_types"))
         .select("incident_type_id")
     )
 
@@ -274,7 +274,7 @@ def verify_bridge(spark, df, incidents):
     )
 
     customers = (
-        spark.read.parquet(str(SILVER / "customers"))
+        spark.read.parquet(str(SHARED_SILVER / "customers"))
         .select(
             "customer_id",
             F.col("area_id").alias("customer_area")

@@ -336,6 +336,7 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      TELECOM_AZURE_CERT_PASSWORD: ${TELECOM_AZURE_CERT_PASSWORD}
 
     volumes:
       - ./airflow/dags:/opt/airflow/dags
