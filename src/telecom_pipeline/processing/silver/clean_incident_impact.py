@@ -20,7 +20,7 @@ The incidents CSV is synthetic ground truth.
 It is NOT output from streaming incident detection.
 """
 
-from pipeline_paths import DATA_ROOT, RAW, SILVER, QUARANTINE, REPORTS
+from pipeline_paths import DATA_ROOT, RAW, SILVER, SHARED_SILVER, QUARANTINE, REPORTS
 
 import json
 from datetime import datetime, timezone
@@ -214,7 +214,7 @@ def reference(spark, table, column):
     return (
         spark.read
         .parquet(
-            str(SILVER / table)
+            str(SHARED_SILVER / table)
         )
         .select(column)
         .distinct()
@@ -900,7 +900,7 @@ def process_incidents(spark):
         spark.read
         .parquet(
             str(
-                SILVER / "towers"
+                SHARED_SILVER / "towers"
             )
         )
         .select(
@@ -1106,7 +1106,7 @@ def process_bridge(spark):
         spark.read
         .parquet(
             str(
-                SILVER / "customers"
+                SHARED_SILVER / "customers"
             )
         )
         .select(
@@ -1715,11 +1715,11 @@ def main():
         )
         .config(
             "spark.hadoop.fs.s3a.access.key",
-            "SPARK_TELECOM"
+            "SNOWFLAKE_TELECOM"
         )
         .config(
             "spark.hadoop.fs.s3a.secret.key",
-            "SparkSeaweed2026SecureKey"
+            "TelecomSeaweed2026SecureKey"
         )
 
         .getOrCreate()

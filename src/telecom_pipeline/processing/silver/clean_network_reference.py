@@ -815,11 +815,11 @@ def main():
         )
         .config(
             "spark.hadoop.fs.s3a.access.key",
-            "SPARK_TELECOM"
+            "SNOWFLAKE_TELECOM"
         )
         .config(
             "spark.hadoop.fs.s3a.secret.key",
-            "SparkSeaweed2026SecureKey"
+            "TelecomSeaweed2026SecureKey"
         )
 
         .getOrCreate()

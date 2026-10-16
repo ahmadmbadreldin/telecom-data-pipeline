@@ -821,14 +821,13 @@ def main():
             "spark.hadoop.fs.s3a.connection.ssl.enabled",
             "false"
         )
-        .config(
+       .config(
             "spark.hadoop.fs.s3a.access.key",
-            "SPARK_TELECOM"
+            "SNOWFLAKE_TELECOM"
         )
-
         .config(
             "spark.hadoop.fs.s3a.secret.key",
-            "SparkSeaweed2026SecureKey"
+            "TelecomSeaweed2026SecureKey"
         )
 
         .config(
