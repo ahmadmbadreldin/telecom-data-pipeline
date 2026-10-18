@@ -1,4 +1,3 @@
-# Telecom Network Incident & Customer Impact Pipeline
 # Signal360
 
 ### 360° View of Network & Customer Experience
@@ -27,10 +26,10 @@ Signal360 connects these domains to answer questions such as:
 
 ## Architecture
 
-The platform integrates batch and streaming data into a unified pipeline, using Spark for processing, Azure Data Lake and SeaweedFS for storage, Snowflake for analytical warehousing, dbt for transformation, and Power BI for reporting.
+The platform integrates batch and streaming data into a unified pipeline, using **Apache Spark** for processing, **Azure Data Lake** and **SeaweedFS** for storage, **Snowflake** for analytical warehousing, **dbt** for transformation, and **Power BI** for reporting.
 
 <p align="center">
-  <img src="src/imلs/Project_Architecture.png" alt="Signal360 Architecture" width="900">
+  <img src="./src/imgs/Project_Architecture.png" alt="Signal360 Architecture" width="900">
 </p>
 
 Both **Azure Data Lake** and **SeaweedFS** can provide processed datasets to **Snowflake**, where the analytical transformation and modeling layer begins.
@@ -58,13 +57,13 @@ Both **Azure Data Lake** and **SeaweedFS** can provide processed datasets to **S
 
 ## Data Pipeline
 
-**Ingestion** — Batch datasets are ingested from CSV files, while network events are handled through Kafka.
+**Ingestion** — Batch datasets are ingested from CSV files, while network events are handled through Apache Kafka.
 
 **Processing** — PySpark performs data cleaning, validation, duplicate handling, datatype normalization, and transformations.
 
 **Storage** — Processed datasets are stored in **Parquet format** across Azure Data Lake and SeaweedFS.
 
-**Warehouse** — Processed datasets from the storage layer are loaded into **Snowflake** for analytical workloads.
+**Warehouse** — Processed datasets from both storage layers can be loaded into **Snowflake** for analytical workloads.
 
 **Transformation** — dbt builds analytical dimensions and facts and applies data quality tests.
 
@@ -74,26 +73,26 @@ Both **Azure Data Lake** and **SeaweedFS** can provide processed datasets to **S
 
 ## Data Model
 
-Signal360 uses a dimensional model designed to connect network activity with its impact on customers.
+Signal360 uses a **dimensional data model** designed to connect network activity with its impact on customers.
 
 <p align="center">
-  <img src="src/imgs/Project_Schema.png" alt="Signal360 Dimensional Data Model" width="900">
+  <img src="./src/imgs/Project_Schema.png" alt="Signal360 Data Model" width="900">
 </p>
 
-The model includes dimensions for areas, towers, customers, plans, services, incidents, and complaint classifications, connected to facts covering network events, network incidents, customer impact, complaints, and customer experience.
+The model connects network, customer, incident, complaint, and experience data through shared dimensions and facts, providing a structured analytical layer for downstream reporting.
 
 ---
 
 ## Running Locally
 
-### Clone the repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/ahmadmbadreldin/telecom-data-pipeline.git
 cd telecom-data-pipeline
 ```
 
-### Configure the environment
+### Configure the Environment
 
 ```bash
 cp .env.example .env
@@ -101,7 +100,7 @@ cp .env.example .env
 
 Update the environment variables with the required Azure, Snowflake, and local service configuration.
 
-### Start the infrastructure
+### Start the Infrastructure
 
 ```bash
 docker compose up -d
@@ -113,7 +112,11 @@ Verify the running services:
 docker compose ps
 ```
 
-Airflow is available locally at `http://localhost:8080`.
+Airflow is available locally at:
+
+```text
+http://localhost:8080
+```
 
 ---
 
