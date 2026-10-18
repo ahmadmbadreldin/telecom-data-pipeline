@@ -76,7 +76,7 @@ Both **Azure Data Lake** and **SeaweedFS** can provide processed datasets to **S
 Signal360 uses a **dimensional data model** designed to connect network activity with its impact on customers.
 
 <p align="center">
-  <img src="./src/imgs/Project_Schema.png" alt="Signal360 Data Model" width="900">
+  <img src="./src/imgs/Project_Schema.png" alt="Signal360 Architecture" width="900">
 </p>
 
 The model connects network, customer, incident, complaint, and experience data through shared dimensions and facts, providing a structured analytical layer for downstream reporting.
